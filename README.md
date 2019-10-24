@@ -76,9 +76,65 @@ Plus d'infos [ici](https://symfony.com/blog/new-in-symfony-4-1-prefix-imported-r
 
 Une fois l'arborescence définie, nous allons restreindre l'accès à certaines parties de l'application.
 
-Nous allons donc générer un [formulaire de login](https://symfony.com/doc/current/security/form_login_setup.html) de type 1 (Login form authenticator)
+Nous allons donc générer un [formulaire de login](https://symfony.com/doc/current/security/form_login_setup.html) de type 1 (Login form authenticator, voir dans le lien fourni)
 
 L'idée principale est la suivante :
 
 - Restreindre toute l'application aux utilisateurs authentifiés uniquement
 - Restreindre les URL d'administration (qui commencent donc par /admin) aux utilisateurs ayant le rôle `ROLE_ADMIN`
+
+Vous agirez sur le fichier de configuration yaml du bundle `Security` de Symfony pour appliquer ce système.
+
+## Fixtures
+
+Vous utiliserez les [fixtures](https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html) pour générer des données de tests dans votre base de données.
+
+Vous devrez générer des fixtures au moins pour les utilisateurs afin de créer :
+
+- au moins un utilisateur normal (sans rôle ou bien avec le rôle `ROLE_USER` uniquement)
+- un administrateur (avec le rôle `ROLE_ADMIN`)
+
+Ainsi vous pourrez tester les accès aux différentes sections de l'application, avec un utilisateur ou un administrateur.
+
+>N'oubliez pas que pour un utilisateur, vous devrez chiffrer le mot de passe
+
+*Pour les autres entités, pour le moment nous les laissons de côté. Nous allons nous concentrer sur la réalisation des interfaces de saisie (CRUD) dans l'administration afin de mettre en place les différents liens et le système qui récupère les données de géolocalisation.*
+
+*Une fois ces fonctionnalités en place, nous pourrons retourner dans nos fixtures pour créer des données de tests pour les destinations, les voyages, etc...nous utiliserons à ce moment-là un package externe nous permettant de [simuler des données de manière aléatoire](https://github.com/fzaninotto/Faker).*
+
+## Layouts / Templates
+
+Vous allez utiliser [Twig](https://twig.symfony.com/doc/2.x/templates.html) pour réaliser vos interfaces. Vous pourrez explorer les templates générés par Symfony lorsque vous faites un contrôleur par exemple, ou encore un formulaire d'identification ou bien un CRUD.
+
+Pour les listes, vous aurez besoin de faire des [boucles](https://twig.symfony.com/doc/2.x/tags/for.html).
+
+>Mettez en oeuvre le mécanisme d'[héritage de templates](https://twig.symfony.com/doc/2.x/templates.html#template-inheritance) pour éviter d'avoir à répéter des sections communes
+---
+>Utilisez la fonction d'[inclusion de template](https://twig.symfony.com/doc/2.x/templates.html#including-other-templates) pour factoriser des templates dont vous aurez besoin dans plusieurs pages
+---
+
+>### Facultatif : Pour les plus motivés d'entre vous, vous pouvez utiliser [Webpack Encore](https://symfony.com/doc/current/frontend.html). Mais attention, je vous conseille de réaliser votre interface sans Webpack Encore dans un premier temps. Oui ce serait bien d'utiliser Yarn, Webpack et des packages Javascript, mais vu le temps imparti on ne va pas pouvoir aller trop loin non plus
+
+## Géolocalisation
+
+Lors de la création d'une destination, vous allez saisir une ville et un pays.
+
+Le but va être d'appeler automatiquement une [API OpenStreetMaps](https://wiki.openstreetmap.org/wiki/Nominatim) qui nous renverra des données de géolocalisation au format JSON à partir de la ville et du pays.
+
+>### **Attention, prenez bien connaissance des conditions d'utilisation de l'API (Usage policy)**
+
+Pour effectuer la requête, vous chercherez **un package Composer faisant office de client HTTP**. Pour valider votre choix, demandez-moi si c'est le bon et motivez votre choix.
+
+>Vous réaliserez donc un [service](https://symfony.com/doc/current/service_container.html) de géolocalisation que vous pourrez type-hinter dans un contrôleur ou un autre service pour l'injecter automatiquement
+---
+>Facultatif : vous étudierez les possibilités d'automatiser l'enregistrement de la géolocalisation lorsque vous créerez ou mettrez à jour une destination, en vous renseignant sur les [listeners et les événements Doctrine](https://symfony.com/doc/4.1/doctrine/event_listeners_subscribers.html). **Mais dans un premier temps, vous réaliserez la fonctionnalité directement dans le contrôleur, en utilisant le service de géolocalisation en tant que dépendance**
+
+Une fois la fonctionnalité de géolocalisation réalisée, vous pourrez commencer à implémenter la carte dans la page d'accueil de la partie publique, présentant dans un premier temps les destinations enregistrées dans votre système (pas encore les voyages).
+
+## Images
+
+Dans votre formulaire de création de voyages, vous allez uploader une ou plusieurs images.
+
+Utilisez un [formulaire Symfony](https://symfony.com/doc/current/forms.html) classique avec [upload d'images](https://symfonycasts.com/screencast/symfony-uploads/upload-in-form).
+
+>Vous pouvez utiliser le Maker bundle avec `php bin/console make:form` pour créer un formulaire
