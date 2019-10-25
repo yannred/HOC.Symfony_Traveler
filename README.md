@@ -33,6 +33,28 @@ Pour ce faire, vous allez créer des entités avec le [MakerBundle](https://symf
 - Il faudra donc pouvoir relier un ou plusieurs voyages à une destination.
 - Pour chaque voyage effectué, il faudra donc pouvoir enregistrer une ou plusieurs photos. Les champs seront représentés sous forme de chaîne de caractères, contenant le chemin vers l'image
 
+### Date de création d'enregistrement
+
+Dans chaque table, vous allez ajouter un champ `created` qui retiendra la date de création de chaque enregistrement.
+
+Cette donnée peut nous servir, dans n'importe quelle application, à avoir une sorte d'historique technique disponible pour analyse en cas de problème.
+
+La problématique va donc être d'enregistrer cette date automatiquement à la création d'un enregistrement.
+
+Ce qui tombe bien, c'est qu'il existe un package qui peut s'en charger pour nous. Il suffit de l'installer et le configurer correctement.
+
+Vous vous intéresserez et documenterez à propos du package [StofDoctrineExtensionsBundle](https://github.com/stof/StofDoctrineExtensionsBundle).
+
+Ce package est bien noté, maintenu, et possède même une [section dans la documentation officielle de Symfony](https://symfony.com/doc/current/bundles/StofDoctrineExtensionsBundle/index.html).
+
+Vous pourrez également trouver une recette pour ce package dans le registre flex.symfony.com.
+
+Ce package vient intégrer le package [DoctrineExtensions](https://github.com/Atlantic18/DoctrineExtensions) dans une application Symfony 4.
+
+>Documentez-vous pour voir quelle extension il faut activer dans la configuration, afin d'activer l'enregistrement automatique de la date de création pour toutes les entités
+---
+>Facultatif : si vous voulez, créez également un champ `updated` ou `updatedAt` contenant la date de mise à jour de l'enregistrement
+
 ## Arborescence
 
 > Toute l'application sera protégée par authentification. On va mettre en oeuvre le système de rôles de Symfony, en autorisant une partie de l'application aux utilisateurs normaux (amis, familles) et une autre partie de l'application à l'administrateur (nous-mêmes)
