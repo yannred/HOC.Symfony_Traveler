@@ -135,6 +135,8 @@ Pour les listes, vous aurez besoin de faire des [boucles](https://twig.symfony.c
 >Utilisez la fonction d'[inclusion de template](https://twig.symfony.com/doc/2.x/templates.html#including-other-templates) pour factoriser des templates dont vous aurez besoin dans plusieurs pages
 ---
 
+Pour faire des liens vers vos CSS, JS, et images, vous utiliserez le composant [asset](https://symfony.com/doc/current/templates.html#linking-to-css-javascript-and-image-assets) de Symfony. **Il est déjà inclus dans ce qu'on a installé avec le website-skeleton !**
+
 >### Facultatif : Pour les plus motivés d'entre vous, vous pouvez utiliser [Webpack Encore](https://symfony.com/doc/current/frontend.html). Mais attention, je vous conseille de réaliser votre interface sans Webpack Encore dans un premier temps. Oui ce serait bien d'utiliser Yarn, Webpack et des packages Javascript, mais vu le temps imparti on ne va pas pouvoir aller trop loin non plus
 
 ## Géolocalisation
