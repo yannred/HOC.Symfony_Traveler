@@ -39,7 +39,7 @@ class VoyageController extends AbstractController
             $entityManager->persist($voyage);
             $entityManager->flush();
 
-            return $this->redirectToRoute('voyage_index');
+            return $this->redirectToRoute('admin_voyage_index');
         }
 
         return $this->render('admin/voyage/new.html.twig', [
@@ -69,7 +69,7 @@ class VoyageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('voyage_index');
+            return $this->redirectToRoute('admin_voyage_index');
         }
 
         return $this->render('admin/voyage/edit.html.twig', [
@@ -89,6 +89,6 @@ class VoyageController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('voyage_index');
+        return $this->redirectToRoute('admin_voyage_index');
     }
 }
