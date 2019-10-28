@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "hoc_traveler",
+            "dialect": "MySQL",
+            "name": "traveler",
+            "password": "r461X8pwe1vnR2mc",
+            "port": 3306,
+            "server": "localhost",
+            "username": "hoc_traveler"
+        }
+    ]
+}
