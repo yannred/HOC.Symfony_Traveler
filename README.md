@@ -139,6 +139,15 @@ Pour faire des liens vers vos CSS, JS, et images, vous utiliserez le composant [
 
 >### Facultatif : Pour les plus motivés d'entre vous, vous pouvez utiliser [Webpack Encore](https://symfony.com/doc/current/frontend.html). Mais attention, je vous conseille de réaliser votre interface sans Webpack Encore dans un premier temps. Oui ce serait bien d'utiliser Yarn, Webpack et des packages Javascript, mais vu le temps imparti on ne va pas pouvoir aller trop loin non plus
 
+### Images
+
+Dans votre formulaire de création de voyages, vous allez uploader une ou plusieurs images.
+
+Utilisez un [formulaire Symfony](https://symfony.com/doc/current/forms.html) classique avec [upload d'images](https://symfonycasts.com/screencast/symfony-uploads/upload-in-form).
+
+>Vous pouvez utiliser le Maker bundle avec `php bin/console make:form` pour créer un formulaire
+
+
 ## Géolocalisation
 
 Lors de la création d'une destination, vous allez saisir une ville et un pays.
@@ -154,11 +163,3 @@ Pour effectuer la requête, vous chercherez **un package Composer faisant office
 >Facultatif : vous étudierez les possibilités d'automatiser l'enregistrement de la géolocalisation lorsque vous créerez ou mettrez à jour une destination, en vous renseignant sur les [listeners et les événements Doctrine](https://symfony.com/doc/4.1/doctrine/event_listeners_subscribers.html). **Mais dans un premier temps, vous réaliserez la fonctionnalité directement dans le contrôleur, en utilisant le service de géolocalisation en tant que dépendance**
 
 Une fois la fonctionnalité de géolocalisation réalisée, vous pourrez commencer à implémenter la carte dans la page d'accueil de la partie publique, présentant dans un premier temps les destinations enregistrées dans votre système (pas encore les voyages).
-
-## Images
-
-Dans votre formulaire de création de voyages, vous allez uploader une ou plusieurs images.
-
-Utilisez un [formulaire Symfony](https://symfony.com/doc/current/forms.html) classique avec [upload d'images](https://symfonycasts.com/screencast/symfony-uploads/upload-in-form).
-
->Vous pouvez utiliser le Maker bundle avec `php bin/console make:form` pour créer un formulaire
