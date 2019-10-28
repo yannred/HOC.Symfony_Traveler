@@ -128,7 +128,11 @@ Ainsi vous pourrez tester les accès aux différentes sections de l'application,
 
 Vous allez utiliser [Twig](https://twig.symfony.com/doc/2.x/templates.html) pour réaliser vos interfaces. Vous pourrez explorer les templates générés par Symfony lorsque vous faites un contrôleur par exemple, ou encore un formulaire d'identification ou bien un CRUD.
 
+Pour les liens, vous utiliserez la fonction [path](https://symfony.com/doc/current/reference/twig_reference.html#path), extension ajoutée par Symfony vous permettant de réaliser des liens avec des noms de routes déclarés dans vos contrôleurs.
+
 Pour les listes, vous aurez besoin de faire des [boucles](https://twig.symfony.com/doc/2.x/tags/for.html).
+
+Consultez aussi [cette page](https://symfony.com/doc/3.4/templating/app_variable.html) pour vous renseigner sur la manière d'afficher des éléments de manière conditionnelle, en fonction du contexte (utilisateur connecté ou non)
 
 >Mettez en oeuvre le mécanisme d'[héritage de templates](https://twig.symfony.com/doc/2.x/templates.html#template-inheritance) pour éviter d'avoir à répéter des sections communes
 ---
