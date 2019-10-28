@@ -139,14 +139,21 @@ Pour faire des liens vers vos CSS, JS, et images, vous utiliserez le composant [
 
 >### Facultatif : Pour les plus motivés d'entre vous, vous pouvez utiliser [Webpack Encore](https://symfony.com/doc/current/frontend.html). Mais attention, je vous conseille de réaliser votre interface sans Webpack Encore dans un premier temps. Oui ce serait bien d'utiliser Yarn, Webpack et des packages Javascript, mais vu le temps imparti on ne va pas pouvoir aller trop loin non plus
 
+### CRUD
+
+Vous allez donc réaliser le CRUD à partir des fichiers précédemment générés par Symfony.
+
+Dans des formulaires comme celui de la destination, il va falloir générer des listes déroulantes contenant [les données d'une autre entité](https://symfony.com/doc/current/reference/forms/types/entity.html) (la table Pays par exemple).
+
+>Cherchez sur le net un script contenant les pays du monde, et importez ces données dans votre table Pays. Si vous voulez éviter que les fixtures ne suppriment vos données, vous pouvez aussi les définir dans les fixtures
+
 ### Images
 
 Dans votre formulaire de création de voyages, vous allez uploader une ou plusieurs images.
 
 Utilisez un [formulaire Symfony](https://symfony.com/doc/current/forms.html) classique avec [upload d'images](https://symfonycasts.com/screencast/symfony-uploads/upload-in-form).
 
->Vous pouvez utiliser le Maker bundle avec `php bin/console make:form` pour créer un formulaire
-
+>Vous pouvez utiliser le Maker bundle avec `php bin/console make:form` pour créer un formulaire, normalement si vous avez fait un `make:crud` Symfony devrait avoir généré les formulaires
 
 ## Géolocalisation
 
