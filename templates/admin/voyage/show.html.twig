@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voyage{% endblock %}
+
+{% block body %}
+    <h1>Voyage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Titre</th>
+                <td>{{ voyage.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ voyage.description }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ voyage.note }}</td>
+            </tr>
+            <tr>
+                <th>DateDepart</th>
+                <td>{{ voyage.dateDepart ? voyage.dateDepart|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ voyage.id }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ voyage.created ? voyage.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_voyage_index') }}">back to list</a>
+
+    <a href="{{ path('admin_voyage_edit', {'id': voyage.id}) }}">edit</a>
+
+    {{ include('admin/voyage/_delete_form.html.twig') }}
+{% endblock %}

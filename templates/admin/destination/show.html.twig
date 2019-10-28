@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Destination{% endblock %}
+
+{% block body %}
+    <h1>Destination</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Ville</th>
+                <td>{{ destination.ville }}</td>
+            </tr>
+            <tr>
+                <th>Lat</th>
+                <td>{{ destination.lat }}</td>
+            </tr>
+            <tr>
+                <th>Lng</th>
+                <td>{{ destination.lng }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ destination.id }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ destination.created ? destination.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_destination_index') }}">back to list</a>
+
+    <a href="{{ path('admin_destination_edit', {'id': destination.id}) }}">edit</a>
+
+    {{ include('admin/destination/_delete_form.html.twig') }}
+{% endblock %}
