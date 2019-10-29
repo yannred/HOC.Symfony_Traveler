@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Destination
      * @ORM\JoinColumn(nullable=false)
      */
     private $pays;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Voyage", mappedBy="destination", orphanRemoval=true)
+     */
+    private $voyages;
+
+    public function __construct()
+    {
+        $this->voyages = new ArrayCollection();
+    }
 
     public function getVille(): ?string
     {
@@ -76,6 +88,37 @@ class Destination
     public function setPays(?Pays $pays): self
     {
         $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Voyage[]
+     */
+    public function getVoyages(): Collection
+    {
+        return $this->voyages;
+    }
+
+    public function addVoyage(Voyage $voyage): self
+    {
+        if (!$this->voyages->contains($voyage)) {
+            $this->voyages[] = $voyage;
+            $voyage->setDestination($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVoyage(Voyage $voyage): self
+    {
+        if ($this->voyages->contains($voyage)) {
+            $this->voyages->removeElement($voyage);
+            // set the owning side to null (unless already changed)
+            if ($voyage->getDestination() === $this) {
+                $voyage->setDestination(null);
+            }
+        }
 
         return $this;
     }
