@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Pays;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -40,6 +41,17 @@ class AppFixtures extends Fixture
         );
 
         $manager->persist($user);
+
+        // PAYS
+        if (($paysFile = fopen(__DIR__ . "/../../data/ListeDePays.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($paysFile)) !== FALSE) {
+                $pays = new Pays();
+                $pays->setNom($data[0]);
+                $manager->persist($pays);
+            }
+
+            fclose($paysFile);
+        }
 
         $manager->flush();
     }
