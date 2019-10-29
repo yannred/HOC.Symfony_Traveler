@@ -150,6 +150,8 @@ Vous allez donc réaliser le CRUD à partir des fichiers précédemment génér�
 Dans des formulaires comme celui de la destination, il va falloir générer des listes déroulantes contenant [les données d'une autre entité](https://symfony.com/doc/current/reference/forms/types/entity.html) (la table Pays par exemple).
 
 >Cherchez sur le net un script contenant les pays du monde, et importez ces données dans votre table Pays. Si vous voulez éviter que les fixtures ne suppriment vos données, vous pouvez aussi les définir dans les fixtures
+---
+>Plus d'infos pour personnaliser vos formulaires [ici](https://symfony.com/doc/current/form/form_customization.html#form-rendering-functions) (générer les champs séparément, les labels, etc...)
 
 ### Images
 
