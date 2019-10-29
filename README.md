@@ -159,6 +159,11 @@ Dans votre formulaire de création de voyages, vous allez uploader une ou plusie
 
 Utilisez un [formulaire Symfony](https://symfony.com/doc/current/forms.html) classique avec [upload d'images](https://symfonycasts.com/screencast/symfony-uploads/upload-in-form).
 
+>Pour adapter votre formulaire afin qu'il supporte un upload de fichiers multiples, vous pourrez utiliser, au choix :
+
+- Un élément [CollectionType](https://symfony.com/doc/current/reference/forms/types/collection.html) avec un sous-formulaire PhotoType, contenant un champ de formulaire FileType
+- Passer à l'élément FileType les options `multiple: true`, et `mapped: false`, puis créer vos photos dans le contrôleur. Il s'agira ensuite, pour cette méthode, de factoriser notre logique d'enregistrement d'une photo dans le repository `PhotoRepository`
+
 Pour afficher vos images, il faudra les redimensionner. Cherchez un package Composer adapté et fonctionnant bien avec Symfony (présent dans la documentation officielle).
 
 >Vous pouvez utiliser le Maker bundle avec `php bin/console make:form` pour créer un formulaire, normalement si vous avez fait un `make:crud` Symfony devrait avoir généré les formulaires
