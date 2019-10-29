@@ -157,6 +157,8 @@ Dans votre formulaire de création de voyages, vous allez uploader une ou plusie
 
 Utilisez un [formulaire Symfony](https://symfony.com/doc/current/forms.html) classique avec [upload d'images](https://symfonycasts.com/screencast/symfony-uploads/upload-in-form).
 
+Pour afficher vos images, il faudra les redimensionner. Cherchez un package Composer adapté et fonctionnant bien avec Symfony (présent dans la documentation officielle).
+
 >Vous pouvez utiliser le Maker bundle avec `php bin/console make:form` pour créer un formulaire, normalement si vous avez fait un `make:crud` Symfony devrait avoir généré les formulaires
 
 ## Géolocalisation
