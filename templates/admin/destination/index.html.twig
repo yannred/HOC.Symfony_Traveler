@@ -9,9 +9,7 @@
         <thead>
             <tr>
                 <th>Ville</th>
-                <th>Lat</th>
-                <th>Lng</th>
-                <th>Id</th>
+                <th>Pays</th>
                 <th>Created</th>
                 <th>actions</th>
             </tr>
@@ -20,10 +18,8 @@
         {% for destination in destinations %}
             <tr>
                 <td>{{ destination.ville }}</td>
-                <td>{{ destination.lat }}</td>
-                <td>{{ destination.lng }}</td>
-                <td>{{ destination.id }}</td>
-                <td>{{ destination.created ? destination.created|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ destination.pays.nom }}</td>
+                <td>{{ destination.created ? destination.created|date('d/m/Y') : '' }}</td>
                 <td>
                     <a href="{{ path('admin_destination_show', {'id': destination.id}) }}">show</a>
                     <a href="{{ path('admin_destination_edit', {'id': destination.id}) }}">edit</a>

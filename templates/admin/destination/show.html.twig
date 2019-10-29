@@ -20,12 +20,12 @@
                 <td>{{ destination.lng }}</td>
             </tr>
             <tr>
-                <th>Id</th>
-                <td>{{ destination.id }}</td>
+                <th>Created</th>
+                <td>{{ destination.created ? destination.created|date('d/m/Y') : '' }}</td>
             </tr>
             <tr>
-                <th>Created</th>
-                <td>{{ destination.created ? destination.created|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Pays</th>
+                <td>{{ destination.pays.nom }}</td>
             </tr>
         </tbody>
     </table>

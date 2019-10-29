@@ -30,13 +30,31 @@ class DestinationController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        // On définit une entité vide
         $destination = new Destination();
+        // Création du formulaire de type DestinationType
+        // Se basera sur $destination pour lier les données envoyées depuis le formulaire
         $form = $this->createForm(DestinationType::class, $destination);
+        // Prend en charge la requête envoyée
+        // Si on a une requête POST avec des données de formulaire,
+        // c'est à ce moment-là que l'on va remplir l'objet $destination
         $form->handleRequest($request);
 
+        // Si on a bien une requête POST, c'est-à-dire que le formulaire a été soumis,
+        // et que les données renseignées sont valides (bon format, dans les limites fixées, etc...)
+        // on rentre dans le bloc d'instructions
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récupération du gestionnaire d'entités
             $entityManager = $this->getDoctrine()->getManager();
+            // On indique au gestionnaire d'entités qu'on veut insérer $destination en BDD
+            // Pour cela, on appelle la méthode persist pour que l'entité en question
+            // soit gérée par notre gestionnaire (donc si elle n'existe pas, comme c'est
+            // le cas ici, elle sera créée)
             $entityManager->persist($destination);
+            // On valide tous les changements demandés au gestionnaire pour envoi vers la base de données
+            // C'est à ce moment-là que les requêtes SQL sont exécutées et pas avant
+            // C'est pour ça que généralement nous ferons un seul appel à flush()
+            // mais que nous aurons fait plusieurs insertions, modifications, etc...
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_destination_index');
