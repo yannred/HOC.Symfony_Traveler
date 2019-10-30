@@ -1,7 +1,5 @@
 {{ form_start(form) }}
-    {{ form_row(form.login) }}
-    {% if context == "NEW" %}
-        {{ form_row(form.password) }}
-    {% endif %}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
     <button class="btn btn-success mb-3">{{ button_label|default('Save') }}</button>
-{{ form_end(form, { 'render_rest': false }) }}
+{{ form_end(form) }}
