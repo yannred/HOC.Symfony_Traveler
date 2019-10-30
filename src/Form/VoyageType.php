@@ -34,7 +34,8 @@ class VoyageType extends AbstractType
             ->add('photos', FileType::class, [
                 'label' => 'Photos du voyage',
                 'mapped' => false,
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
             ])
         ;
     }
