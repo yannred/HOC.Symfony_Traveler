@@ -3,40 +3,40 @@
 {% block title %}Voyage{% endblock %}
 
 {% block body %}
-    <h1>Voyage</h1>
+    <div class="container">
+        <h1>Voyage</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Titre</th>
-                <td>{{ voyage.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ voyage.description }}</td>
-            </tr>
-            <tr>
-                <th>Note</th>
-                <td>{{ voyage.note }}</td>
-            </tr>
-            <tr>
-                <th>DateDepart</th>
-                <td>{{ voyage.dateDepart ? voyage.dateDepart|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ voyage.id }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{{ voyage.created ? voyage.created|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Titre</th>
+                    <td>{{ voyage.titre }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ voyage.description }}</td>
+                </tr>
+                <tr>
+                    <th>Note</th>
+                    <td>{{ voyage.note }}</td>
+                </tr>
+                <tr>
+                    <th>DateDepart</th>
+                    <td>{{ voyage.dateDepart ? voyage.dateDepart|date('d/m/Y') : '' }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="{{ path('admin_voyage_index') }}">back to list</a>
+        <div class="mb-4">
+            {% for photo in voyage.photos %}
+                <img src="{{ (voyage_photo_public_path ~ '/' ~ photo.filePath) | imagine_filter('voyage_thumb') }}" title="Photo du voyage" />
+            {% endfor %}
+        </div>
 
-    <a href="{{ path('admin_voyage_edit', {'id': voyage.id}) }}">edit</a>
+        <a href="{{ path('admin_voyage_index') }}" class="btn btn-primary mr-3">back to list</a>
 
-    {{ include('admin/voyage/_delete_form.html.twig') }}
+        <a href="{{ path('admin_voyage_edit', {'id': voyage.id}) }}" class="btn btn-warning">edit</a>
+
+        {{ include('admin/voyage/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

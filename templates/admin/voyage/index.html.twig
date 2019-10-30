@@ -3,41 +3,43 @@
 {% block title %}Voyage index{% endblock %}
 
 {% block body %}
-    <h1>Voyage index</h1>
+    <div class="container">
+        <h1>Voyage index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Note</th>
-                <th>DateDepart</th>
-                <th>Id</th>
-                <th>Created</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for voyage in voyages %}
-            <tr>
-                <td>{{ voyage.titre }}</td>
-                <td>{{ voyage.description }}</td>
-                <td>{{ voyage.note }}</td>
-                <td>{{ voyage.dateDepart ? voyage.dateDepart|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ voyage.id }}</td>
-                <td>{{ voyage.created ? voyage.created|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('admin_voyage_show', {'id': voyage.id}) }}">show</a>
-                    <a href="{{ path('admin_voyage_edit', {'id': voyage.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('admin_voyage_new') }}">Create new</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Destination</th>
+                    <th>Note</th>
+                    <th>Date de Départ</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for voyage in voyages %}
+                <tr>
+                    <td>{{ voyage.titre }}</td>
+                    <td>{{ voyage.destination.ville }} / {{ voyage.destination.pays.nom }}</td>
+                    <td>{{ voyage.note }}</td>
+                    <td>{{ voyage.dateDepart ? voyage.dateDepart|date('d/m/Y') : '' }}</td>
+                    <td>
+                        <a href="{{ path('admin_voyage_show', {'id': voyage.id}) }}" class="btn btn-primary" title="Show">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                        <a href="{{ path('admin_voyage_edit', {'id': voyage.id}) }}" class="btn btn-warning" style="color: #FFF;" title="Edit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    
+        <a href="{{ path('admin_voyage_new') }}" class="btn btn-dark">Créer un voyage</a>
+    </div>
 {% endblock %}

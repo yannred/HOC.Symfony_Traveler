@@ -19,3 +19,6 @@
 ###< symfony/web-server-bundle ###
 
 /.vscode/
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
