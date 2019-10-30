@@ -3,36 +3,38 @@
 {% block title %}Destination{% endblock %}
 
 {% block body %}
-    <h1>Destination</h1>
+    <div class="container">
+        <h1>Destination</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Ville</th>
-                <td>{{ destination.ville }}</td>
-            </tr>
-            <tr>
-                <th>Lat</th>
-                <td>{{ destination.lat }}</td>
-            </tr>
-            <tr>
-                <th>Lng</th>
-                <td>{{ destination.lng }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{{ destination.created ? destination.created|date('d/m/Y') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Pays</th>
-                <td>{{ destination.pays.nom }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Ville</th>
+                    <td>{{ destination.ville }}</td>
+                </tr>
+                <tr>
+                    <th>Lat</th>
+                    <td>{{ destination.lat }}</td>
+                </tr>
+                <tr>
+                    <th>Lng</th>
+                    <td>{{ destination.lng }}</td>
+                </tr>
+                <tr>
+                    <th>Created</th>
+                    <td>{{ destination.created ? destination.created|date('d/m/Y') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Pays</th>
+                    <td>{{ destination.pays.nom }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="{{ path('admin_destination_index') }}">back to list</a>
+        <a href="{{ path('admin_destination_index') }}">back to list</a>
 
-    <a href="{{ path('admin_destination_edit', {'id': destination.id}) }}">edit</a>
+        <a href="{{ path('admin_destination_edit', {'id': destination.id}) }}">edit</a>
 
-    {{ include('admin/destination/_delete_form.html.twig') }}
+        {{ include('admin/destination/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
