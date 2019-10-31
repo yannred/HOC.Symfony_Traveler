@@ -4,21 +4,13 @@
 
 {% block body %}
     <div class="container">
-        <h1>Destination</h1>
+        <h1>Destination <span class="badge badge-info">{{ destination.lat }} / {{ destination.lng }}</span></h1>
 
         <table class="table">
             <tbody>
                 <tr>
                     <th>Ville</th>
                     <td>{{ destination.ville }}</td>
-                </tr>
-                <tr>
-                    <th>Lat</th>
-                    <td>{{ destination.lat }}</td>
-                </tr>
-                <tr>
-                    <th>Lng</th>
-                    <td>{{ destination.lng }}</td>
                 </tr>
                 <tr>
                     <th>Created</th>

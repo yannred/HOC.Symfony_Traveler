@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Destination;
 use App\Form\DestinationType;
+use App\Geocoding\IGeocoding;
 use App\Repository\DestinationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +29,7 @@ class DestinationController extends AbstractController
     /**
      * @Route("/new", name="destination_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, IGeocoding $geocodingService): Response
     {
         // On définit une entité vide
         $destination = new Destination();
@@ -44,8 +45,18 @@ class DestinationController extends AbstractController
         // et que les données renseignées sont valides (bon format, dans les limites fixées, etc...)
         // on rentre dans le bloc d'instructions
         if ($form->isSubmitted() && $form->isValid()) {
+            $location = $destination->getVille() . ', ' . $destination->getPays()->getNom();
+
+            $geoData = $geocodingService->geocode($location);
+
             // Récupération du gestionnaire d'entités
             $entityManager = $this->getDoctrine()->getManager();
+
+            if (!empty($geoData)) {
+                $destination->setLat($geoData[0]['lat']);
+                $destination->setLng($geoData[0]['lon']);
+            }
+
             // On indique au gestionnaire d'entités qu'on veut insérer $destination en BDD
             // Pour cela, on appelle la méthode persist pour que l'entité en question
             // soit gérée par notre gestionnaire (donc si elle n'existe pas, comme c'est
@@ -101,7 +112,7 @@ class DestinationController extends AbstractController
      */
     public function delete(Request $request, Destination $destination): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$destination->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $destination->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($destination);
             $entityManager->flush();

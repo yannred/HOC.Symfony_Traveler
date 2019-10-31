@@ -117,6 +117,15 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.37"
     },
+    "guzzlehttp/guzzle": {
+        "version": "6.4.1"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.6.1"
+    },
     "imagine/imagine": {
         "version": "1.2.2"
     },
@@ -163,11 +172,17 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
