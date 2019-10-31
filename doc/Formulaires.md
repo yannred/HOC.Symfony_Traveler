@@ -2,9 +2,9 @@
 
 Dans les différents CRUD générés par la commande `php bin/console make:crud`, nous allons retoucher les formulaires générés.
 
-Cela implique de passer en revue les différents fichiers sous le dossier `src/Form`, afin que les types de champs soien corrects et qu'on puisse afficher ces formulaires dans nos templates.
+Cela implique de passer en revue les différents fichiers sous le dossier `src/Form`, afin que les types de champs soient corrects et qu'on puisse afficher ces formulaires dans nos templates.
 
-Nous devrons aussi modifier quelques classes de contrôleurs, dans notre cas sous le dossier `src/Admin`, pour prendre en charge des uploads de fichier par exemple.
+Nous devrons aussi modifier quelques classes de contrôleurs, dans notre cas sous le dossier `src/Admin`, pour prendre en charge des uploads de fichiers par exemple.
 
 ## Utilisateur
 
