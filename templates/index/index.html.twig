@@ -14,15 +14,24 @@
 
 {% block body %}
 <div id="traveler-map" style="height:500px;"></div>
+<div id="traveler-destinations" data-destinations="{{ destinationsJs|json_encode|e('html_attr') }}"></div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
+        var destinationsDiv = document.querySelector('#traveler-destinations');
+        var destinations = JSON.parse(destinationsDiv.dataset.destinations);
+
         var mymap = L.map('traveler-map').setView([45.6963425, 4.73594802991681], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
+
+        destinations.forEach(destination => {
+            var marker = L.marker([destination.lat, destination.lng]).addTo(mymap);
+            marker.bindPopup(destination.ville);
+        });
     </script>
 {% endblock %}
