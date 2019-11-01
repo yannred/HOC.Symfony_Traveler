@@ -309,8 +309,73 @@ Pour finir, nous pouvons donc afficher les photos dans une fiche voyage :
 
 Le souci, c'est que nos images ne sont pas du tout redimensionnées, ni optimisées pour l'affichage :
 
-![fiche_vyage_sans_thumbnail](img/fiche_voyage_sans_thumbnail.png "Fiche voyage sans miniature et optimisation")
+![fiche_voyage_sans_thumbnail](img/fiche_voyage_sans_thumbnail.png "Fiche voyage sans miniature et optimisation")
 
 ### Installation et utilisation de [LiipImagineBundle](https://symfony.com/doc/2.0/bundles/LiipImagineBundle/index.html)
 
-A venir.
+Nous allons installer le bundle `LiipImagineBundle` pour générer des miniatures de manière dynamique.
+
+Nous pourrons ensuite utiliser un filtre Twig sur nos images pour optimiser l'affichage des photos dans nos voyages.
+
+#### Installation
+
+```bash
+composer require liip/imagine-bundle
+```
+
+> Nous n'avons pas besoin de l'activer manuellement dans les bundles car nous utilisons Symfony Flex
+
+En suivant la documentation, nous allons [activer les routes](https://symfony.com/doc/2.0/bundles/LiipImagineBundle/installation.html#step-3-register-the-bundle-s-routes) du module en éditant le fichier `config\routes.yaml` :
+
+```yaml
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.yaml"
+```
+
+Ensuite, nous allons configurer notre filtre de miniature en s'inspirant de la [section correspondante dans la documentation](https://symfony.com/doc/2.0/bundles/LiipImagineBundle/basic-usage.html#create-thumbnails).
+
+> Fichier : config/packages/liip_imagine.yaml
+
+```yaml
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    driver: "gd"
+
+    resolvers:
+        default:
+            web_path: ~
+
+    filter_sets:
+        cache: ~
+
+        # the name of the "filter set"
+        voyage_thumb:
+
+            # adjust the image quality to 75%
+            quality: 75
+
+            # list of transformations to apply (the "filters")
+            filters:
+
+                # use the "outbound" mode
+                # to crop the image when the size ratio of the input differs
+                thumbnail: { size: [200, 180], mode: outbound }
+```
+
+Pour finir, utilisons notre filtre Twig dans les voyages :
+
+```twig
+<div class="mb-4">
+    {% for photo in voyage.photos %}
+        <img src="{{ (voyage_photo_public_path ~ '/' ~ photo.filePath) | imagine_filter('voyage_thumb') }}" title="Photo du voyage" />
+    {% endfor %}
+</div>
+```
+
+Une fiche voyage devient donc :
+
+![img_liip](img/img_liip.png "Images miniatures")
+
+Et la taille de nos images est optimisée pour le web :
+
+![img_liip_sizes](img/img_liip_sizes.png "Tailles images miniatures")
