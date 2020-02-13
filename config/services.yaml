@@ -32,4 +32,4 @@ services:
       arguments:
         $baseUrl: '%api_osm_base_url%'
 
-    App\Util\Geocoding\IGeocoding: '@App\Util\Geocoding\OsmGeocoding'
+    App\Geocoding\IGeocoding: '@App\Geocoding\OsmGeocoding'
