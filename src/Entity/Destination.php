@@ -18,15 +18,8 @@ class Destination
      */
     private $ville;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $lat;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $lng;
+    /** @ORM\Embedded(class = "App\Entity\LatLng") */
+    protected $coordinates;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Pays", inversedBy="destinations")
@@ -56,26 +49,14 @@ class Destination
         return $this;
     }
 
-    public function getLat(): ?string
+    public function getCoordinates(): ?LatLng
     {
-        return $this->lat;
+        return $this->coordinates;
     }
 
-    public function setLat(?string $lat): self
+    public function setCoordinates(?LatLng $coordinates): self
     {
-        $this->lat = $lat;
-
-        return $this;
-    }
-
-    public function getLng(): ?string
-    {
-        return $this->lng;
-    }
-
-    public function setLng(?string $lng): self
-    {
-        $this->lng = $lng;
+        $this->coordinates = $coordinates;
 
         return $this;
     }

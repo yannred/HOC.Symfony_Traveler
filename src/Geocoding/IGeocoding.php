@@ -2,7 +2,9 @@
 
 namespace App\Geocoding;
 
+use App\Entity\LatLng;
+
 interface IGeocoding
 {
-    public function geocode(string $location): array;
+  public function getLatLon(string $location): ?LatLng;
 }

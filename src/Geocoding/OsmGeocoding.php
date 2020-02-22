@@ -2,43 +2,48 @@
 
 namespace App\Geocoding;
 
-use GuzzleHttp\Client;
+use App\Entity\LatLng;
 
-class OsmGeocoding implements IGeocoding
+final class OsmGeocoding extends AbstractGeocoding
 {
-    private $baseUrl;
-    private $client;
+  public function getLatLon(string $location): ?LatLng
+  {
+    $geoData = $this->geocode($location);
 
-    public function __construct(string $baseUrl)
-    {
-        $this->baseUrl = $baseUrl;
-        $this->client = new Client();
+    if (empty($geoData)) {
+      return null;
     }
 
-    /**
-     * Geocodes a given location
-     *
-     * @param string $location
-     * @return array empty if no result
-     */
-    public function geocode(string $location): array
-    {
-        // TODO: Gérer les erreurs avec try/catch
-        // http://docs.guzzlephp.org/en/stable/quickstart.html#exceptions
-        $response = $this->client->request(
-            'GET',
-            $this->baseUrl . '/search',
-            [
-                'query' => [
-                    'q' => $location,
-                    'format' => 'json',
-                    'limit' => '1'
-                ]
-            ]
-        );
+    return new LatLng(
+      $geoData[0]['lat'],
+      $geoData[0]['lon']
+    );
+  }
 
-        $content = json_decode((string) ($response->getBody()), true);
+  /**
+   * Geocodes a given location
+   *
+   * @param string $location
+   * @return array empty if no result
+   */
+  protected function geocode(string $location): array
+  {
+    // TODO: Gérer les erreurs avec try/catch
+    // http://docs.guzzlephp.org/en/stable/quickstart.html#exceptions
+    $response = $this->client->request(
+      'GET',
+      $this->baseUrl . '/search',
+      [
+        'query' => [
+          'q' => $location,
+          'format' => 'json',
+          'limit' => '1'
+        ]
+      ]
+    );
 
-        return $content;
-    }
+    $content = json_decode((string) ($response->getContent()), true);
+
+    return $content;
+  }
 }

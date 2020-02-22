@@ -30,7 +30,7 @@
         }).addTo(mymap);
 
         destinations.forEach(destination => {
-            var marker = L.marker([destination.lat, destination.lng]).addTo(mymap);
+            var marker = L.marker([destination.coordinates.lat, destination.coordinates.lng]).addTo(mymap);
             marker.bindPopup(destination.ville);
         });
     </script>

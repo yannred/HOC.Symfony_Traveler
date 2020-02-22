@@ -22,8 +22,8 @@ class DestinationRepository extends ServiceEntityRepository
     public function getDestinationsWithLatLng(): array
     {
         return $this->createQueryBuilder('d')
-            ->where('d.lat IS NOT NULL')
-            ->andWhere('d.lng IS NOT NULL')
+            ->where('d.coordinates.lat IS NOT NULL')
+            ->andWhere('d.coordinates.lng IS NOT NULL')
             ->getQuery()
             ->getResult();
     }

@@ -6,7 +6,7 @@
 parameters:
   voyage_photo_public_path: '/uploads/voyage'
   voyage_photo_folder: '%kernel.project_dir%/public%voyage_photo_public_path%'
-  api_osm_base_url: 'https://nominatim.openstreetmap.org'
+  app.api_osm_base_url: 'https://nominatim.openstreetmap.org'
 
 services:
     # default configuration for services in *this* file
@@ -30,6 +30,6 @@ services:
     # please note that last definitions always *replace* previous ones
     App\Geocoding\OsmGeocoding:
       arguments:
-        $baseUrl: '%api_osm_base_url%'
+        $baseUrl: '%app.api_osm_base_url%'
 
     App\Geocoding\IGeocoding: '@App\Geocoding\OsmGeocoding'
