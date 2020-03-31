@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
+{% endblock %}
+
+{% block body %}
+<div id="traveler-map" style="height:500px;"></div>
+<div id="traveler-destinations" data-destinations="{{ destinationsJs|json_encode|e('html_attr') }}"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var destinationsDiv = document.querySelector('#traveler-destinations');
+        var destinations = JSON.parse(destinationsDiv.dataset.destinations);
+
+        var mymap = L.map('traveler-map').setView([45.6963425, 4.73594802991681], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+
+        destinations.forEach(destination => {
+            var marker = L.marker([destination.coordinates.lat, destination.coordinates.lng]).addTo(mymap);
+            marker.bindPopup(destination.ville);
+        });
+    </script>
+{% endblock %}

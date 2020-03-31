@@ -1,0 +1,21 @@
+@startuml Geocoding
+interface IGeocoding {
+  + getLatLng()
+}
+abstract class AbstractGeocoding {
+  # baseUrl
+  # client
+  # geocode()
+}
+abstract class AbstractGeocodingWithApiKey {
+  # apiKey
+  + getApiKey()
+}
+class OsmGeocoding
+class GoogleMapsGeocoding
+
+IGeocoding <|-- AbstractGeocoding
+AbstractGeocoding <|-- AbstractGeocodingWithApiKey
+AbstractGeocoding <|-- OsmGeocoding
+AbstractGeocodingWithApiKey <|-- GoogleMapsGeocoding
+@enduml

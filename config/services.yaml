@@ -4,6 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+  voyage_photo_public_path: '/uploads/voyage'
+  voyage_photo_folder: '%kernel.project_dir%/public%voyage_photo_public_path%'
+  app.api_osm_base_url: 'https://nominatim.openstreetmap.org'
+  app.api_gmaps_base_url: 'https://maps.googleapis.com/maps/api'
 
 services:
     # default configuration for services in *this* file
@@ -25,3 +29,13 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Geocoding\OsmGeocoding:
+      arguments:
+        $baseUrl: '%app.api_osm_base_url%'
+
+    App\Geocoding\GoogleMapsGeocoding:
+      arguments:
+        $baseUrl: '%app.api_gmaps_base_url%'
+        $apiKey: '%env(GOOGLE_MAPS_API_KEY)%'
+
+    App\Geocoding\IGeocoding: '@App\Geocoding\OsmGeocoding'

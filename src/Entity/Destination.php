@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,31 +11,30 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Destination
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use BaseEntityTrait;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $ville;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $lat;
+    /** @ORM\Embedded(class = "App\Entity\LatLng") */
+    protected $coordinates;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Pays", inversedBy="destinations")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $lng;
+    private $pays;
 
-    public function getId(): ?int
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Voyage", mappedBy="destination", orphanRemoval=true)
+     */
+    private $voyages;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->voyages = new ArrayCollection();
     }
 
     public function getVille(): ?string
@@ -48,26 +49,58 @@ class Destination
         return $this;
     }
 
-    public function getLat(): ?string
+
+    public function getCoordinates(): ?LatLng
     {
-        return $this->lat;
+        return $this->coordinates;
     }
 
-    public function setLat(?string $lat): self
+    public function setCoordinates(?LatLng $coordinates): self
     {
-        $this->lat = $lat;
+        $this->coordinates = $coordinates;
 
         return $this;
     }
 
-    public function getLng(): ?string
+    public function getPays(): ?Pays
     {
-        return $this->lng;
+        return $this->pays;
     }
 
-    public function setLng(?string $lng): self
+    public function setPays(?Pays $pays): self
     {
-        $this->lng = $lng;
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Voyage[]
+     */
+    public function getVoyages(): Collection
+    {
+        return $this->voyages;
+    }
+
+    public function addVoyage(Voyage $voyage): self
+    {
+        if (!$this->voyages->contains($voyage)) {
+            $this->voyages[] = $voyage;
+            $voyage->setDestination($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVoyage(Voyage $voyage): self
+    {
+        if ($this->voyages->contains($voyage)) {
+            $this->voyages->removeElement($voyage);
+            // set the owning side to null (unless already changed)
+            if ($voyage->getDestination() === $this) {
+                $voyage->setDestination(null);
+            }
+        }
 
         return $this;
     }

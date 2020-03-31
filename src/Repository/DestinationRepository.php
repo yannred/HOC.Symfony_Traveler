@@ -19,6 +19,7 @@ class DestinationRepository extends ServiceEntityRepository
         parent::__construct($registry, Destination::class);
     }
 
+<<<<<<< HEAD
     // /**
     //  * @return Destination[] Returns an array of Destination objects
     //  */
@@ -47,4 +48,14 @@ class DestinationRepository extends ServiceEntityRepository
         ;
     }
     */
+=======
+    public function getDestinationsWithLatLng(): array
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.coordinates.lat IS NOT NULL')
+            ->andWhere('d.coordinates.lng IS NOT NULL')
+            ->getQuery()
+            ->getResult();
+    }
+>>>>>>> Medium/DI_Article
 }

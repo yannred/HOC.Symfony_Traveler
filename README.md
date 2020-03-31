@@ -128,14 +128,45 @@ Ainsi vous pourrez tester les accès aux différentes sections de l'application,
 
 Vous allez utiliser [Twig](https://twig.symfony.com/doc/2.x/templates.html) pour réaliser vos interfaces. Vous pourrez explorer les templates générés par Symfony lorsque vous faites un contrôleur par exemple, ou encore un formulaire d'identification ou bien un CRUD.
 
+Pour les liens, vous utiliserez la fonction [path](https://symfony.com/doc/current/reference/twig_reference.html#path), extension ajoutée par Symfony vous permettant de réaliser des liens avec des noms de routes déclarés dans vos contrôleurs.
+
 Pour les listes, vous aurez besoin de faire des [boucles](https://twig.symfony.com/doc/2.x/tags/for.html).
+
+Consultez aussi [cette page](https://symfony.com/doc/3.4/templating/app_variable.html) pour vous renseigner sur la manière d'afficher des éléments de manière conditionnelle, en fonction du contexte (utilisateur connecté ou non)
 
 >Mettez en oeuvre le mécanisme d'[héritage de templates](https://twig.symfony.com/doc/2.x/templates.html#template-inheritance) pour éviter d'avoir à répéter des sections communes
 ---
 >Utilisez la fonction d'[inclusion de template](https://twig.symfony.com/doc/2.x/templates.html#including-other-templates) pour factoriser des templates dont vous aurez besoin dans plusieurs pages
 ---
 
+Pour faire des liens vers vos CSS, JS, et images, vous utiliserez le composant [asset](https://symfony.com/doc/current/templates.html#linking-to-css-javascript-and-image-assets) de Symfony. **Il est déjà inclus dans ce qu'on a installé avec le website-skeleton !**
+
 >### Facultatif : Pour les plus motivés d'entre vous, vous pouvez utiliser [Webpack Encore](https://symfony.com/doc/current/frontend.html). Mais attention, je vous conseille de réaliser votre interface sans Webpack Encore dans un premier temps. Oui ce serait bien d'utiliser Yarn, Webpack et des packages Javascript, mais vu le temps imparti on ne va pas pouvoir aller trop loin non plus
+
+### CRUD
+
+Vous allez donc réaliser le CRUD à partir des fichiers précédemment générés par Symfony.
+
+Dans des formulaires comme celui de la destination, il va falloir générer des listes déroulantes contenant [les données d'une autre entité](https://symfony.com/doc/current/reference/forms/types/entity.html) (la table Pays par exemple).
+
+>Cherchez sur le net un script contenant les pays du monde, et importez ces données dans votre table Pays. Si vous voulez éviter que les fixtures ne suppriment vos données, vous pouvez aussi les définir dans les fixtures
+---
+>Plus d'infos pour personnaliser vos formulaires [ici](https://symfony.com/doc/current/form/form_customization.html#form-rendering-functions) (générer les champs séparément, les labels, etc...)
+
+### Images
+
+Dans votre formulaire de création de voyages, vous allez uploader une ou plusieurs images.
+
+Utilisez un [formulaire Symfony](https://symfony.com/doc/current/forms.html) classique avec [upload d'images](https://symfonycasts.com/screencast/symfony-uploads/upload-in-form).
+
+>Pour adapter votre formulaire afin qu'il supporte un upload de fichiers multiples, vous pourrez utiliser, au choix :
+
+- Un élément [CollectionType](https://symfony.com/doc/current/reference/forms/types/collection.html) avec un sous-formulaire PhotoType, contenant un champ de formulaire FileType
+- Passer à l'élément FileType les options `multiple: true`, et `mapped: false`, puis créer vos photos dans le contrôleur. Il s'agira ensuite, pour cette méthode, de factoriser notre logique d'enregistrement d'une photo dans le repository `PhotoRepository`
+
+Pour afficher vos images, il faudra les redimensionner. Cherchez un package Composer adapté et fonctionnant bien avec Symfony (présent dans la documentation officielle).
+
+>Vous pouvez utiliser le Maker bundle avec `php bin/console make:form` pour créer un formulaire, normalement si vous avez fait un `make:crud` Symfony devrait avoir généré les formulaires
 
 ## Géolocalisation
 
@@ -152,11 +183,3 @@ Pour effectuer la requête, vous chercherez **un package Composer faisant office
 >Facultatif : vous étudierez les possibilités d'automatiser l'enregistrement de la géolocalisation lorsque vous créerez ou mettrez à jour une destination, en vous renseignant sur les [listeners et les événements Doctrine](https://symfony.com/doc/4.1/doctrine/event_listeners_subscribers.html). **Mais dans un premier temps, vous réaliserez la fonctionnalité directement dans le contrôleur, en utilisant le service de géolocalisation en tant que dépendance**
 
 Une fois la fonctionnalité de géolocalisation réalisée, vous pourrez commencer à implémenter la carte dans la page d'accueil de la partie publique, présentant dans un premier temps les destinations enregistrées dans votre système (pas encore les voyages).
-
-## Images
-
-Dans votre formulaire de création de voyages, vous allez uploader une ou plusieurs images.
-
-Utilisez un [formulaire Symfony](https://symfony.com/doc/current/forms.html) classique avec [upload d'images](https://symfonycasts.com/screencast/symfony-uploads/upload-in-form).
-
->Vous pouvez utiliser le Maker bundle avec `php bin/console make:form` pour créer un formulaire
