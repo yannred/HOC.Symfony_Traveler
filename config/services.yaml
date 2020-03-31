@@ -7,6 +7,7 @@ parameters:
   voyage_photo_public_path: '/uploads/voyage'
   voyage_photo_folder: '%kernel.project_dir%/public%voyage_photo_public_path%'
   app.api_osm_base_url: 'https://nominatim.openstreetmap.org'
+  app.api_gmaps_base_url: 'https://maps.googleapis.com/maps/api'
 
 services:
     # default configuration for services in *this* file
@@ -31,5 +32,10 @@ services:
     App\Geocoding\OsmGeocoding:
       arguments:
         $baseUrl: '%app.api_osm_base_url%'
+
+    App\Geocoding\GoogleMapsGeocoding:
+      arguments:
+        $baseUrl: '%app.api_gmaps_base_url%'
+        $apiKey: '%env(GOOGLE_MAPS_API_KEY)%'
 
     App\Geocoding\IGeocoding: '@App\Geocoding\OsmGeocoding'

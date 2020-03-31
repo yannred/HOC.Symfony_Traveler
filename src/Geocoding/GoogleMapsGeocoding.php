@@ -4,7 +4,7 @@ namespace App\Geocoding;
 
 use App\Entity\LatLng;
 
-final class GoogleMapsGeocoding extends AbstractGeocoding
+final class GoogleMapsGeocoding extends AbstractGeocodingWithApiKey
 {
   public function getLatLon(string $location): ?LatLng
   {
